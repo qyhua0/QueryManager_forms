@@ -1,0 +1,90 @@
+# ==========================================
+# C# / .NET 标准 .gitignore 文件
+# ==========================================
+
+# 1. 编译输出和临时文件 (最重要)
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+*.cache
+*.log
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+
+# 2. Visual Studio 用户特定文件和缓存
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vspscc
+*.vssscc
+
+# 3. JetBrains Rider (IDE) 特定文件
+.idea/
+*.sln.iml
+
+# 4. NuGet 包和依赖管理
+# 现代 .NET 项目通常使用全局包缓存或 obj 目录，但保留此规则以防万一
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# 5. 测试相关输出
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+BenchmarkDotNet.Artifacts/
+
+# 6. MSBuild 和构建工具
+*.binlog
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+
+# 7. 发布和部署文件 (防止意外提交敏感配置)
+*.pubxml
+*.publishproj
+[Pp]ublish/
+*.azurePubxml
+
+# 8. 代码生成和特定框架
+orleans.codegen.cs
+Generated_Code/
+ASALocalRun/
+FodyWeavers.xsd
+
+# 9. 其他常见忽略项
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+*.e2e
+*.swp
+*.swo
+*~
+$tf/

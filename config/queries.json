@@ -1,0 +1,225 @@
+{
+  "Connections": [
+    {
+      "Id": "conn1",
+      "Name": "本地Northwind示例",
+      "DbType": "MSSQL",
+      "ConnectionString": "Server=localhost;Database=dd;User Id=sa;Password=sa;"
+    },
+    {
+      "Id": "conn2",
+      "Name": "SQL Server 2000示例",
+      "DbType": "MSSQL2000",
+      "ConnectionString": "Server=127.0.0.1,1433;Database=dd;User Id=sa;Password=sa;Packet Size=4096;"
+    }
+  ],
+  "Reports": [
+    {
+      "Id": "rpt_orders",
+      "Name": "订单查询",
+      "Description": "按日期范围、客户编号查询订单列表",
+      "ConnectionId": "conn1",
+      "BaseSql": "SELECT OrderID, CustomerID, EmployeeID, OrderDate, ShippedDate, Freight FROM Orders WHERE 1=1",
+      "Parameters": [
+        {
+          "Name": "StartDate",
+          "Label": "开始日期",
+          "ControlType": "DatePicker",
+          "DefaultValue": "",
+          "SqlFragment": "AND OrderDate >= @StartDate",
+          "FuzzySearch": false,
+          "FuzzyField": null,
+          "Options": [],
+          "Required": false
+        },
+        {
+          "Name": "EndDate",
+          "Label": "结束日期",
+          "ControlType": "DatePicker",
+          "DefaultValue": "",
+          "SqlFragment": "AND OrderDate <= @EndDate",
+          "FuzzySearch": false,
+          "FuzzyField": null,
+          "Options": [],
+          "Required": false
+        },
+        {
+          "Name": "CustomerID",
+          "Label": "客户编号",
+          "ControlType": "TextBox",
+          "DefaultValue": "",
+          "SqlFragment": "AND CustomerID LIKE @CustomerID",
+          "FuzzySearch": true,
+          "FuzzyField": "CustomerID",
+          "Options": [],
+          "Required": false
+        }
+      ],
+      "Columns": [
+        { "Field": "OrderID",    "Header": "订单ID",   "Width": 80,  "Format": "",           "Align": "Center" },
+        { "Field": "CustomerID", "Header": "客户编号", "Width": 100, "Format": "",           "Align": "Left"   },
+        { "Field": "EmployeeID", "Header": "员工ID",   "Width": 80,  "Format": "",           "Align": "Center" },
+        { "Field": "OrderDate",  "Header": "订单日期", "Width": 110, "Format": "yyyy-MM-dd", "Align": "Center" },
+        { "Field": "ShippedDate","Header": "发货日期", "Width": 110, "Format": "yyyy-MM-dd", "Align": "Center" },
+        { "Field": "Freight",    "Header": "运费",     "Width": 80,  "Format": "N2",         "Align": "Right"  }
+      ]
+    },
+    {
+        "Id": "rpt_products",
+        "Name": "产品库存查询",
+        "Description": "按产品名称模糊查找产品库存",
+        "ConnectionId": "conn1",
+        "BaseSql": "SELECT ProductID, ProductName, SupplierID, CategoryID, UnitPrice, UnitsInStock, Discontinued FROM Products WHERE 1=1",
+        "Parameters": [
+            {
+                "Name": "ProductName",
+                "Label": "产品名称",
+                "ControlType": "TextBox",
+                "DefaultValue": "",
+                "SqlFragment": "AND ProductName LIKE @ProductName",
+                "FuzzySearch": true,
+                "FuzzyField": "ProductName",
+                "Options": [],
+                "Required": false
+            },
+            {
+                "Name": "Discontinued",
+                "Label": "停产状态",
+                "ControlType": "ComboBox",
+                "DefaultValue": "",
+                "SqlFragment": "AND Discontinued = @Discontinued",
+                "FuzzySearch": false,
+                "FuzzyField": null,
+                "Options": [ "0", "1" ],
+                "Required": false
+            }
+        ],
+        "Columns": [
+            {
+                "Field": "ProductID",
+                "Header": "产品ID",
+                "Width": 70,
+                "Format": "",
+                "Align": "Center"
+            },
+            {
+                "Field": "ProductName",
+                "Header": "产品名称",
+                "Width": 200,
+                "Format": "",
+                "Align": "Left"
+            },
+            {
+                "Field": "UnitPrice",
+                "Header": "单价",
+                "Width": 80,
+                "Format": "N2",
+                "Align": "Right"
+            },
+            {
+                "Field": "UnitsInStock",
+                "Header": "库存数量",
+                "Width": 90,
+                "Format": "",
+                "Align": "Center"
+            },
+            {
+                "Field": "Discontinued",
+                "Header": "停产",
+                "Width": 70,
+                "Format": "",
+                "Align": "Center"
+            }
+        ]
+    },
+    {
+        "Id": "rpt_sales_detail",
+        "Name": "销售明细查询",
+        "Description": "按商品名称、客户名称查询销售明细",
+        "ConnectionId": "conn1",
+        "BaseSql": "SELECT n.Date AS 日期, bb.bfullname AS 客户名称, p.pfullname AS 商品名称, b.qty AS 数量, b.price AS 单价, b.discount AS 折扣, b.DiscountPrice AS 折扣后单价, b.comment AS 备注 FROM dlyndx n INNER JOIN bakdly b ON n.Vchcode = b.Vchcode INNER JOIN ptype p ON b.PtypeId = p.ptypeid LEFT JOIN btype bb ON bb.btypeid = n.btypeid WHERE n.draft = 1 AND CONVERT(datetime, n.Date, 120) >= DATEADD(MONTH, -3, GETDATE())",
+        "Parameters": [
+            {
+                "Name": "pfullname",
+                "Label": "商品名称",
+                "ControlType": "TextBox",
+                "DefaultValue": "",
+                "SqlFragment": "AND p.pfullname LIKE @pfullname",
+                "FuzzySearch": true,
+                "FuzzyField": "pfullname",
+                "Options": [],
+                "Required": false
+            },
+            {
+                "Name": "bfullname",
+                "Label": "客户名称",
+                "ControlType": "TextBox",
+                "DefaultValue": "",
+                "SqlFragment": "AND bb.bfullname LIKE @bfullname",
+                "FuzzySearch": true,
+                "FuzzyField": "bfullname",
+                "Options": [],
+                "Required": false
+            }
+        ],
+        "Columns": [
+            {
+                "Field": "日期",
+                "Header": "日期",
+                "Width": 110,
+                "Format": "yyyy-MM-dd",
+                "Align": "Center"
+            },
+            {
+                "Field": "客户名称",
+                "Header": "客户名称",
+                "Width": 150,
+                "Format": "",
+                "Align": "Left"
+            },
+            {
+                "Field": "商品名称",
+                "Header": "商品名称",
+                "Width": 180,
+                "Format": "",
+                "Align": "Left"
+            },
+            {
+                "Field": "数量",
+                "Header": "数量",
+                "Width": 70,
+                "Format": "",
+                "Align": "Center"
+            },
+            {
+                "Field": "单价",
+                "Header": "单价",
+                "Width": 90,
+                "Format": "N2",
+                "Align": "Right"
+            },
+            {
+                "Field": "折扣",
+                "Header": "折扣",
+                "Width": 70,
+                "Format": "",
+                "Align": "Center"
+            },
+            {
+                "Field": "折扣后单价",
+                "Header": "折扣后单价",
+                "Width": 100,
+                "Format": "N2",
+                "Align": "Right"
+            },
+            {
+                "Field": "备注",
+                "Header": "备注",
+                "Width": 150,
+                "Format": "",
+                "Align": "Left"
+            }
+        ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>QueryManager</AssemblyName>
+    <RootNamespace>QueryManager</RootNamespace>
+    <Nullable>disable</Nullable>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="EPPlus" Version="5.8.14" />
+  </ItemGroup>
+
+</Project>
