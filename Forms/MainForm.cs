@@ -120,7 +120,7 @@ namespace QueryManager.Forms
             splitMain = new SplitContainer
             {
                 Dock = DockStyle.Fill,
-          
+
             };
 
             // Left: report tree
@@ -154,7 +154,7 @@ namespace QueryManager.Forms
             {
                 Dock = DockStyle.Fill,
                 Orientation = Orientation.Horizontal,
-        
+
             };
 
             // Top-right: param panel
@@ -401,7 +401,7 @@ namespace QueryManager.Forms
                         {
                             var tip = new ToolTip();
                             tip.SetToolTip(txt, "支持模糊查找");
-                           // txt.PlaceholderText = "支持模糊查找...";
+                            // txt.PlaceholderText = "支持模糊查找...";
                         }
                         ctrl = txt;
                         break;
