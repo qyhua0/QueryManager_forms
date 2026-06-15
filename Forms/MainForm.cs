@@ -439,7 +439,7 @@ namespace QueryManager.Forms
                 if (_paramControls.TryGetValue(param.Name, out Control ctrl))
                 {
                     string val = GetControlValue(ctrl);
-                    if (string.IsNullOrWhiteSpace(val))
+                        MessageBox.Show($"{param.Label}为必填项。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     {
                         MessageBox.Show("${param.Label}为必填项。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         ctrl.Focus();
